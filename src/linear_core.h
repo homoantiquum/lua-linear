@@ -65,8 +65,8 @@ CBLAS_ORDER linear_checkorder(lua_State *L, int index);
 void linear_checkargs(lua_State *L, int index, size_t size, linear_param_t *params,
 		linear_arg_u *args);
 int linear_argerror(lua_State *L, int index, int numok);
-inline int linear_rawgeti(lua_State *L, int index, int n);
-inline int linear_getfield(lua_State *L, int index, const char *key);
+int linear_rawgeti(lua_State *L, int index, int n);
+int linear_getfield(lua_State *L, int index, const char *key);
 #if LUA_VERSION_NUM < 502
 void *linear_testudata(lua_State *L, int index, const char *name);
 #endif
@@ -75,25 +75,6 @@ int linear_comparison_handler(const void *a, const void *b);
 linear_vector_t *linear_create_vector(lua_State *L, size_t length);
 linear_matrix_t *linear_create_matrix(lua_State *L, size_t rows, size_t cols, CBLAS_ORDER order);
 int luaopen_linear(lua_State *L);
-
-
-inline int linear_rawgeti (lua_State *L, int index, int n) {
-#if LUA_VERSION_NUM >= 503
-	return lua_rawgeti(L, index, n);
-#else
-	lua_rawgeti(L, index, n);
-	return lua_type(L, -1);
-#endif
-}
-
-inline int linear_getfield (lua_State *L, int index, const char *key) {
-#if LUA_VERSION_NUM >= 503
-	return lua_getfield(L, index, key);
-#else
-	lua_getfield(L, index, key);
-	return lua_type(L, -1);
-#endif
-}
 
 
 #endif /* _LINEAR_CORE_INCLUDED */

@@ -392,7 +392,9 @@ static void linear_normal_handler (size_t size, double *x, size_t incx, linear_a
 		u1 = linear_random(rs);
 		u2 = linear_random(rs);
 		r = sqrt(-2.0 * log(1 - u1));
-		sincos(2 * M_PI * u2, &s, &c);
+		// sincos(2 * M_PI * u2, &s, &c);
+		s = sin(2 * M_PI * u2);
+		c = cos(2 * M_PI * u2);
 		*x = r * c;
 		x += incx;
 		*x = r * s;

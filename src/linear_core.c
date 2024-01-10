@@ -136,6 +136,29 @@ int linear_argerror (lua_State *L, int index, int numok) {
 
 
 /*
+ * rawgeti and getfield
+ */
+
+inline int linear_rawgeti (lua_State *L, int index, int n) {
+#if LUA_VERSION_NUM >= 503
+	return lua_rawgeti(L, index, n);
+#else
+	lua_rawgeti(L, index, n);
+	return lua_type(L, -1);
+#endif
+}
+
+inline int linear_getfield (lua_State *L, int index, const char *key) {
+#if LUA_VERSION_NUM >= 503
+	return lua_getfield(L, index, key);
+#else
+	lua_getfield(L, index, key);
+	return lua_type(L, -1);
+#endif
+}
+
+
+/*
  * compatibility
  */
 
